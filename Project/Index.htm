@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" class="stylesheet">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://rawgit.com/nnnick/Chart.js/v1.0.2/Chart.min.js"></script> 
+<script type="text/javascript">
+window.onload=function(){/*from  w w w.  j  av  a2s.  c  o  m*/
+function getActualData() {
+var actualData = []
+for (var m = 0; m < 20; m++)
+  actualData.push(45 + parseInt(Math.random() * 35))
+  return actualData;
+}
+var ANIMATIONSTEPS = 340;
+var myLineChart;
+var labels;
+var animationStep;
+setInterval(function () {
+if (myLineChart === undefined) {
+  var actualData = getActualData();
+  var interpolationSteps = Math.ceil(ANIMATIONSTEPS / actualData.length);
+  labels = []
+  var data = []
+  var blankData = []
+  for (var i = 0; i < (actualData.length - 1); i++) {
+      labels.push('')
+      data.push(actualData[i])
+      blankData.push(null)
+      var difference = actualData[i + 1] - actualData[i];
+      var interpolationStep = 1 / interpolationSteps;
+      for (var j = 1; j < interpolationSteps; j++) {
+          labels.push('')
+          data.push(actualData[i] + difference * Chart.helpers.easingEffects["linear"](j * interpolationStep));
+          blankData.push(null)
+      }
+  }
+  labels.push('')
+  data.push(actualData[i])
+  blankData.push(null)
+  var data = {
+      labels: labels,
+      datasets: [
+          {
+              strokeColor: "#0095ff",
+              data: blankData
+          },
+          {
+              strokeColor: "transparent",
+              data: data
+          }
+      ]
+  };
+  var ctx = document.getElementById("myChart").getContext("2d");
+  myLineChart = new Chart(ctx).Line(data, {
+      animation: false,
+      datasetFill: false,
+      pointDot: false,
+      datasetStrokeWidth: 5,
+      showTooltips: false,
+      scaleOverride: true,
+      scaleSteps: 12,
+      scaleStepWidth: 5,
+      scaleStartValue: 30,
+      scaleShowVerticalLines: false,
+      scaleShowLabels: false,
+  });
+  animationStep = 0;
+}
+myLineChart.datasets[0].points[animationStep].value = myLineChart.datasets[1].points[animationStep].value
+myLineChart.update();
+animationStep++;
+if (animationStep >= labels.length) {
+  myLineChart.destroy();
+  myLineChart = undefined;
+}
+}, 10)
+}
+
+</script> 
+</head>
+<body>
+    <div class="top-nav">
+     <ul>
+        <li><a class="active" href="#home"><h1>UNI Hospital</h1></a></li>
+        <li style="float:right;"><a href="#news"><img 
+            src="svg/bell.svg" 
+            class="svg-type" /></a></li>
+            <li style="float:right;"><a href="#news"><img 
+                src="svg/envelope.svg" 
+                class="svg-type" /></a></li>
+      </ul>
+    </div>
+    <div class="main-page">
+        <div class="left-section">
+            <div class="menu">
+                <h5>Menu</h5>
+
+                <div class="menu-options">
+                    <a href="Indexmodern.htm">
+                    <img 
+                    src="svg/home.svg" 
+                    class="svg-type" />
+                </a>
+                <a href="Report.html">
+                    <img 
+                    src="svg/clipboard-list-check.svg" 
+                    class="svg-type" alt="Report"/></a>
+                    <a href="appointment.html">
+                    <img 
+                    src="svg/doctor.svg" 
+                    class="svg-type" /></a>
+                    <a href="staff.html">
+                    <img 
+                    src="svg/users-alt.svg" 
+                    class="svg-type" /></a>
+                    <a href="beds.html">
+                    <img 
+                    src="svg/bed-alt.svg" 
+                    class="svg-type" /></a>
+                    <a href="bills.html">
+                    <img 
+                    src="svg/receipt.svg" 
+                    class="svg-type" /></a>
+                    
+                </div>
+                <h5>Appearence</h5>
+
+                <div class="menu-options">
+                    <a href="#">
+                    <img 
+                    src="svg/user-add.svg" 
+                    class="svg-type"></a>
+                    <a href="Settings.html">
+                    <img 
+                    src="svg/settings.svg" 
+                    class="svg-type" /></a>
+                    <a href="Report-Problem.html">
+                    <img 
+                    src="svg/sensor-alert.svg" 
+                    class="svg-type" /></a>
+                    <a href="Signin.htm">
+                    <img 
+                    src="svg/power.svg" 
+                    class="svg-type" /></a>
+                   
+                    
+                </div>
+            </div>
+        </div>
+        <div class="middle-section">
+            <h4>Dashboard</h4>
+            <img src="Images/pngtree-2-5d-see-a-doctor-medical-hospital-image_18143.jpg">
+            <div class="middle-section-profile">
+                <h4>Profile</h4>
+
+                <img src="man-profile-cartoon_18591-58482.webp">
+                <h5>Tanmoy Debnath</h5>
+                <p>Patient</p>
+            </div>
+            <div class="middle-section-center">
+                <div class="container">
+                    <img src="Images/blood-pressure.png">
+                    <h4>Blood Pressure</h4>
+                    <h1>104/70</h1>
+                    <p><i class="fi fi-rs-chart-line-up" style="color:rgb(7, 204, 0);"></i>  &nbsp; 4% more than last month</p>
+                </div>
+
+                <div class="container">
+                    <img src="Images/icons8-medical-heart-94.png">
+                    <h4>Heart Rate</h4>
+                    <h1>85 bmp</h1>
+                    <p><i class="fi fi-rs-chat-arrow-down" style="color:rgb(240, 0, 0);"></i>  &nbsp; 5% less than last month</p>
+                </div>
+                <div class="container">
+                    <img src="Images/glucose-meter.png">
+                    <h4>Glucose Level</h4>
+                    <h1>75-90</h1>
+                    <p><i class="fi fi-rs-chart-line-up" style="color:rgb(7, 204, 0);"></i>  &nbsp; 20% higher than last month</p>
+                </div>
+                <div class="container">
+                    <img src="Images/blood-test.png">
+                    <h4>Blood Count</h4>
+                    <h1>9,444/ml</h1>
+                    <p><i class="fi fi-rs-chat-arrow-down" style="color:rgb(240, 0, 0);"></i>  &nbsp; 18% less than last month</p>
+                </div>
+            </div>
+            <div class="middle-section-buttom">
+                <div class="middle-section-buttom-container-right">
+                    <div class="middle-section-buttom-container-right-nav">
+                        <div class="middle-section-buttom-container-right-nav-leftnav">
+                            <h4>Heart Performance rate</h4>
+                            <p>1 - 7 November 2022</p>
+                        </div>
+                        <div class="middle-section-buttom-container-right-nav-rightnav">
+                            <div class="container"><h4>44 bmp</h4>&nbsp;<p>Average</p></div>
+                        </div>
+                    </div>
+                    <canvas id="myChart" height="400px" width="540px"></canvas>  
+
+                </div>
+                <div class="middle-section-buttom-container-left">
+                    <div class="middle-section-buttom-container-left-nav">
+                        <div class="middle-section-buttom-container-left-nav-leftnav">
+                            <h4>Health Report Document</h4><p>April 2022</p>
+                        </div>
+                        <div class="middle-section-buttom-container-left-nav-rightnav">
+                            <p></p>
+                        </div>
+
+                    </div>
+                    <div class="list-container">
+                            <div class="list">
+                                <div class="list-left">
+                                    <div class="list-tittle">
+                                        <img src="Images/google-docs.png"> 
+                                        <div class="list-size">
+                                            <p><b>Medical Checkup</b></p>
+                                            <p style="font-size: 14px;">04.04.2024</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="list-right">
+                                    <img 
+                                                src="svg/trash.svg" 
+                                                class="svg-type" >
+                                                <img 
+                                                src="svg/download.svg" 
+                                                class="svg-type" >
+                                </div>
+                                
+                            </div>
+                            <div class="list">
+                                <div class="list-left">
+                                    <div class="list-tittle">
+                                        <img src="Images/google-docs.png"> 
+                                        <div class="list-size">
+                                            <p><b>Medical Checkup</b></p>
+                                            <p style="font-size: 14px;">08.04.2024</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="list-right">
+                                    <img 
+                                                src="svg/trash.svg" 
+                                                class="svg-type" >
+                                                <img 
+                                                src="svg/download.svg" 
+                                                class="svg-type" >
+                                </div>
+                                
+                            </div>
+                            <div class="list">
+                                <div class="list-left">
+                                    <div class="list-tittle">
+                                        <img src="Images/google-docs.png"> 
+                                        <div class="list-size">
+                                            <p><b>Medical Checkup</b></p>
+                                            <p style="font-size: 14px;">12.04.2024</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="list-right">
+                                    <img 
+                                                src="svg/trash.svg" 
+                                                class="svg-type" >
+                                                <img 
+                                                src="svg/download.svg" 
+                                                class="svg-type" >
+                                </div>
+                                
+                            </div>
+                            <div class="list">
+                                <div class="list-left">
+                                    <div class="list-tittle">
+                                        <img src="Images/google-docs.png"> 
+                                        <div class="list-size">
+                                            <p><b>Medical Checkup</b></p>
+                                            <p style="font-size: 14px;">14.04.2024</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="list-right">
+                                    <img 
+                                                src="svg/trash.svg" 
+                                                class="svg-type" >
+                                                <img 
+                                                src="svg/download.svg" 
+                                                class="svg-type" >
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="list-left">
+                                    <div class="list-tittle">
+                                        <img src="Images/google-docs.png"> 
+                                        <div class="list-size">
+                                            <p><b>Medical Checkup</b></p>
+                                            <p style="font-size: 14px;">18.04.2024</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="list-right">
+                                    <img 
+                                                src="svg/trash.svg" 
+                                                class="svg-type" >
+                                                <img 
+                                                src="svg/download.svg" 
+                                                class="svg-type" >
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="list-left">
+                                    <div class="list-tittle">
+                                        <img src="Images/google-docs.png"> 
+                                        <div class="list-size">
+                                            <p><b>Medical Checkup</b></p>
+                                            <p style="font-size: 14px;">24.04.2024</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="list-right">
+                                    <img 
+                                                src="svg/trash.svg" 
+                                                class="svg-type" >
+                                                <img 
+                                                src="svg/download.svg" 
+                                                class="svg-type" >
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="list-left">
+                                    <div class="list-tittle">
+                                        <img src="Images/google-docs.png"> 
+                                        <div class="list-size">
+                                            <p><b>Medical Checkup</b></p>
+                                            <p style="font-size: 14px;">28.04.2024</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="list-right">
+                                    <img 
+                                                src="svg/trash.svg" 
+                                                class="svg-type" >
+                                                <img 
+                                                src="svg/download.svg" 
+                                                class="svg-type" >
+                                </div>
+                            </div>
+                           </div></div></div></div></div></body>
+</body>
+</html>
